@@ -1,0 +1,4 @@
+{
+    "todo-tree.ripgrep": "/usr/bin/rg",
+    "better-todo-tree.regex.regex": "(^|//|#|<!--|;|/\\*|^[ \\t]*(-|\\d+.)|#+)\\s*(?=\\[x\\]|\\[ \\]|[A-Za-z0-9_])($TAGS)(?![A-Za-z0-9_])"
+}
