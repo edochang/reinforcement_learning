@@ -29,7 +29,7 @@ def value_prediction(
             - Q (np.ndarray): Q_pi function; numpy array shape of [nS,nA]
     """
     #####################
-    # TODO: Implement Value Prediction Algorithm (Hint: Sutton Book p.75)
+    # ✅TODO: Implement Value Prediction Algorithm (Hint: Sutton Book p.75)
     # Hint: To get the action probability, use pi.action_prob(state,action)
     # Hint: Use the "env.P" to get the transition probabilities.
     #    env.P[state][action] returns a list of tuples [(prob, next_state, reward, done)]
@@ -46,6 +46,34 @@ def value_prediction(
     """The V(s) function to estimate"""
     Q = np.zeros((states, actions))
     """The Q(s, a) function to estimate"""
+    is_delta_small = False
+
+    while not is_delta_small:
+        delta = 0
+        for s in range(states):
+            v = V[s]
+            V_s = 0
+            
+            # Calculate the state-action value, Q(s,a) = p(s',r|s,a) * (r + gamma * V(s')
+            for a in range(actions):
+                Q[s][a] = 0
+                for p, s_next, r, done in P[s][a]:
+                    if done:
+                        Q[s][a] += p * r
+                    else:
+                        Q[s][a] += p * (r + gamma * V[s_next])
+
+                # Get the action probability
+                pi_a = pi.action_prob(s, a)
+
+                # Update V(s) += pi(a|s) * Q(s,a)    
+                V_s += pi_a * Q[s][a]
+            
+            V[s] = V_s
+            delta = max(delta, abs(v - V[s]))
+            
+        if delta < theta:
+            is_delta_small = True
 
     return V, Q
 
@@ -63,7 +91,7 @@ def value_iteration(env: gym.Env, initV: np.ndarray, theta: float, gamma: float)
     """
 
     #####################
-    # TODO: Implement Value Iteration Algorithm (Hint: Sutton Book p.83)
+    # ✅TODO: Implement Value Iteration Algorithm (Hint: Sutton Book p.83)
     # Hint: Use the "env.P" to get the transition probabilities.
     #    env.P[state][action] returns a list of tuples [(prob, next_state, reward, done)]
     #    (Both our custom environments and OpenAI Gym environments have this attribute)
@@ -82,4 +110,27 @@ def value_iteration(env: gym.Env, initV: np.ndarray, theta: float, gamma: float)
     P: np.ndarray = env.P
     """Transition Dynamics;  env.P[state][action] returns a list of tuples [(prob, next_state, reward, done)]"""
 
+    is_delta_small = False
+
+    while not is_delta_small:
+        delta = 0
+        for s in range(nS):
+            v = V[s]
+            
+            # Calculate the state-action value, Q(s,a) = p(s',r|s,a) * (r + gamma * V(s')
+            for a in range(nA):
+                Q[s][a] = 0
+                for p, s_next, r, done in P[s][a]:
+                    Q[s][a] += p * (r + gamma * V[s_next])
+                    # Update the policy with the new Q values
+                    pi.Q[s][a] = Q[s][a]
+
+            # Set the value from the Q function for a given state and max action
+            V[s] = Q[s][pi.action(s)]
+            
+            delta = max(delta, abs(v - V[s]))
+            
+        if delta < theta:
+            is_delta_small = True
+    
     return V, Policy_DeterministicGreedy(Q)
