@@ -26,7 +26,7 @@ class BanditPolicy(Policy):
         Parameters:
             _ (int): Unused. Just here to conform to interface, will always be None for bandits.
         """
-        ### TODO ###
+        ### ❌TODO ###
         ### 1. Implement the epsilon-greedy policy for selecting an action.
         ###    With probability epsilon, select a random action.
         ###    Otherwise, select any action with the highest estimated Q value.

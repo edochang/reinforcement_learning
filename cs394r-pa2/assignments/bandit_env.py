@@ -52,7 +52,7 @@ class BanditEnvironment(gym.Env):
         Parameters:
             action (int): the selected action
         """
-        ### TODO ###
+        ### ❌TODO ###
         ### 1. Sample a reward from the selected arm.
         #       Hint: use np.random.normal()
         #       Hint: np.random.normal() accepts the mean and standard deviation, not the variance.
@@ -68,7 +68,7 @@ class BanditEnvironment(gym.Env):
         Returns:
             bool: True if the selected action is one of the best actions.
         """
-        ### TODO ###
+        ### ❌TODO ###
         ### 1. Determine if the selected action is one of the best actions.
         ###    Hint: remember that multiple arms could have the same Q* value (e.g. on the first step, all arms are valid)
         raise NotImplementedError
@@ -80,7 +80,7 @@ class BanditEnvironment(gym.Env):
 
         noise ~ N(0, 0.01)
         """
-        ### TODO ###
+        ### ❌TODO ###
         ### 1. Add noise to all the arms of the bandit.
         #       Hint: use np.random.normal() again, but with the size parameter this time.
         raise NotImplementedError
