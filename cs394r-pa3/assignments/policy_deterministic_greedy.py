@@ -22,7 +22,7 @@ class Policy_DeterministicGreedy(Policy):
             - int: index of the action to take
         """
 
-        ### TODO: Implement the action method ###
+        ### ❌TODO: Implement the action method ###
         raise NotImplementedError
 
 
@@ -41,5 +41,5 @@ class Policy_DeterministicGreedy(Policy):
             - float: the probability of taking the action in the given state
         """
 
-        ### TODO: Implement the action_prob method ###
+        ### ❌TODO: Implement the action_prob method ###
         raise NotImplementedError
