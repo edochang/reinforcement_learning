@@ -41,7 +41,7 @@ def off_policy_mc_prediction_weighted_importance_sampling(
     C: np.ndarray = np.zeros((nS, nA))
     """The importance sampling ratios."""
 
-    ## TODO:
+    ## ✅TODO:
     # Implement the off-policy Monte-Carlo prediction algorithm using WEIGHTED importance sampling.
     # Hints:
     #   - Sutton & Barto 2nd edition p. 110
@@ -50,6 +50,19 @@ def off_policy_mc_prediction_weighted_importance_sampling(
     #   -  Look at `reversed()` to iterate over a trajectory in reverse order.
     #   -  You can use the `pi.action_prob(state, action)` and `bpi.action_prob(state, action)` methods to get the action probabilities.
 
+    for traj in trajs:
+        # Note: b is provided by bpi in the function call.
+        # An episode is a list of (s_t, a_t, r_{t+1}, s_{t+1}) provided by traj in trajs.  trajs is a list of episodes.
+        G = 0
+        W = 1
+        for t in reversed(traj):
+            s_t, a_t, r_t2, s_t2 = t
+            G = gamma * G + r_t2
+            C[s_t, a_t] += W
+            Q[s_t, a_t] += (W / C[s_t, a_t]) * (G - Q[s_t, a_t])
+            W *= pi.action_prob(s_t, a_t) / bpi.action_prob(s_t, a_t)
+            if W == 0:
+                break
     return Q
 
 def off_policy_mc_prediction_ordinary_importance_sampling(
@@ -92,7 +105,7 @@ def off_policy_mc_prediction_ordinary_importance_sampling(
     C: np.ndarray = np.zeros((nS, nA))
     """The importance sampling ratios."""
 
-    ## TODO:
+    ## ✅TODO:
     # Implement the off-policy Monte-Carlo prediction algorithm using ORDINARY importance sampling.
     # Hints:
     #   - Sutton & Barto 2nd edition p. 110 for the main algorithm.
@@ -103,4 +116,16 @@ def off_policy_mc_prediction_ordinary_importance_sampling(
     #   -  Look at `reversed()` to iterate over a trajectory in reverse order.
     #   -  You can use the `pi.action_prob(state, action)` and `bpi.action_prob(state, action)` methods to get the action probabilities.
 
+    for traj in trajs:
+        G = 0
+        W = 1
+        for t in reversed(traj):
+            s_t, a_t, r_t2, s_t2 = t
+            G = gamma * G + r_t2
+            C[s_t, a_t] += W
+            # Rather than multiplying by W, we replace W with 1 in the update for ordinary importance sampling.
+            Q[s_t, a_t] += (1 / C[s_t, a_t]) * (G - Q[s_t, a_t])
+            W *= pi.action_prob(s_t, a_t) / bpi.action_prob(s_t, a_t)
+            if W == 0:
+                break
     return Q
