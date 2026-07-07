@@ -32,11 +32,34 @@ def on_policy_n_step_td(
     """
 
     #####################
-    # TODO: Implement On Policy n-Step TD algorithm
+    # ✅TODO: Implement On Policy n-Step TD algorithm
     # sampling (Hint: Sutton Book p. 144)
     #####################
 
     V = np.array(initV)
+
+    for traj in trajs:
+        T = len(traj)
+        for t in range(T):
+            if t < T:
+            # Take an action and observe the next reward and state
+                _, _, r_t2, s_t2 = traj[t]
+                if t + n >= T:
+                    # Not enough steps to look ahead n steps
+                    T = t + 1
+        tau = t - n + 1
+        if tau >= 0:
+            G = 0
+            for i in range(tau + 1, min(tau + n, T)):
+                _, _, r_i, _ = traj[i]
+                G += (gamma ** (i - tau - 1)) * r_i
+            if tau + n < T:
+                _, _, _, s_taun = traj[tau + n]
+                G += (gamma **n) * V[s_taun]
+            s_tau = traj[tau][0]
+            V[s_tau] += alpha * (G - V[s_tau])
+        if tau == T - 1:
+            break
 
     return V
 
@@ -47,7 +70,7 @@ class NStepSARSAHyperparameters(Hyperparameters):
         """
         Parameters:
             gamma (float): The discount factor
-            alpha (float): The learning rate
+            alpha (floa): The learning rate
             n (int): The number of steps (the "n" in n-step SARSA)
         """
         super().__init__(gamma)
@@ -93,7 +116,8 @@ class NStepSARSA(Solver):
         #   - Hint: You can use the `pi.action_prob(state, action)` and `bpi.action_prob(state, action)` methods to get the action probabilities.
         #   - Hint: Be sure to check both terminated and truncated variables.
         #####################
-        
+        raise NotImplementedError("NStepSARSA.train_episode() is not implemented yet.")
+
         episode_G = 0.0
 
         return episode_G
