@@ -79,7 +79,7 @@ class SampleAverageMethod(ActionValue):
             a (int): the selected action
             r (float): the observed reward        
         """
-        ### TODO ###
+        ### ❌TODO ###
         ### 1. Update the number of times the selected action has been selected.
         ### 2. Update the estimated Q value for the selected action using the sample-average method (see equation 2.3)
         raise NotImplementedError
@@ -99,7 +99,7 @@ class ConstantStepSizeMethod(ActionValue):
             a (int): the selected action
             r (float): the observed reward
         """
-        ### TODO ###
+        ### ❌TODO ###
         ### 1. Update the estimated Q value for the selected action using the constant step-size method (see equation 2.5)
         raise NotImplementedError
 
@@ -171,7 +171,7 @@ class BanditSolver(Solver):
         best_action_taken = []
 
         while not done and not truncated:
-            ### TODO ###
+            ### ❌TODO ###
             ### 1. Select an action using the agent's policy
             ### 2. Step the bandit environment with the selected action
             ###     Hint: make sure to destructure the step method's return values (next_state, r, done, truncated, info)

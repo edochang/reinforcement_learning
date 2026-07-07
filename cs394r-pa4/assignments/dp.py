@@ -29,7 +29,7 @@ def value_prediction(
             - Q (np.ndarray): Q_pi function; numpy array shape of [nS,num_actions]
     """
     #####################
-    # TODO: Implement Value Prediction Algorithm (Hint: Sutton Book p.75)
+    # ❌TODO: Implement Value Prediction Algorithm (Hint: Sutton Book p.75)
     # Hint: To get the action probability, use pi.action_prob(state,action)
     # Hint: Use the "env.P" to get the transition probabilities.
     #    env.P[state][action] returns a list of tuples [(prob, next_state, reward, done)]
@@ -63,7 +63,7 @@ def value_iteration(env: gym.Env, initV: np.ndarray, theta: float, gamma: float)
     """
 
     #####################
-    # TODO: Implement Value Iteration Algorithm (Hint: Sutton Book p.83)
+    # ❌TODO: Implement Value Iteration Algorithm (Hint: Sutton Book p.83)
     # Hint: Use the "env.P" to get the transition probabilities.
     #    env.P[state][action] returns a list of tuples [(prob, next_state, reward, done)]
     #    (Both our custom environments and OpenAI Gym environments have this attribute)
