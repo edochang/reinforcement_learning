@@ -39,24 +39,28 @@ def on_policy_n_step_td(
     V = np.array(initV)
 
     for traj in trajs:
-        T = len(traj)
+        T = float('inf')    # initalize to infinity
         t = 0
         while True:
             if t < T:
-            # Take an action and observe the next reward and state
+                # Take an action and observe the next reward and state
                 _, _, r_t2, s_t2 = traj[t]
-                if t + n >= T:
-                    # Not enough steps to look ahead n steps
+                # If it's the last step in traj, it's the terminal state
+                if t == len(traj) - 1:
                     T = t + 1
+            
             tau = t - n + 1
+            
             if tau >= 0:
                 G = 0
                 for i in range(tau + 1, min(tau + n, T) + 1):
                     _, _, r_i, _ = traj[i-1]
                     G += (gamma ** (i - tau - 1)) * r_i
+                
                 if tau + n < T:
-                    _, _, _, s_taun = traj[tau + n]
-                    G += (gamma **n) * V[s_taun]
+                    s_tau_n, _, _, _ = traj[tau + n]
+                    G += (gamma **n) * V[s_tau_n]
+                
                 s_tau = traj[tau][0]
                 V[s_tau] += alpha * (G - V[s_tau])
             
