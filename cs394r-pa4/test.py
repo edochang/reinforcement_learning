@@ -73,7 +73,7 @@ class CustomTestRunner(unittest.TextTestRunner):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run test cases for RL programming assignments.")
-    parser.add_argument('assignment', choices=['bandit', 'dp', 'monte_carlo', 'n_step_bootstrap'], help="Select an assignment to run tests for")
+    parser.add_argument('assignment', choices=['bandit', 'dp', 'monte_carlo', 'n_step_bootstrap', 'n_step_bootstrap_sanity'], help="Select an assignment to run tests for")
     args = parser.parse_args()
 
     loader = unittest.TestLoader()
