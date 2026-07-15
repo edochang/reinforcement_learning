@@ -41,7 +41,7 @@ def off_policy_mc_prediction_weighted_importance_sampling(
     C: np.ndarray = np.zeros((nS, nA))
     """The importance sampling ratios."""
 
-    ## TODO:
+    ## ❌TODO:
     # Implement the off-policy Monte-Carlo prediction algorithm using WEIGHTED importance sampling.
     # Hints:
     #   - Sutton & Barto 2nd edition p. 110
@@ -92,7 +92,7 @@ def off_policy_mc_prediction_ordinary_importance_sampling(
     C: np.ndarray = np.zeros((nS, nA))
     """The importance sampling ratios."""
 
-    ## TODO:
+    ## ❌TODO:
     # Implement the off-policy Monte-Carlo prediction algorithm using ORDINARY importance sampling.
     # Hints:
     #   - Sutton & Barto 2nd edition p. 110 for the main algorithm.
