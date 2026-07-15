@@ -51,8 +51,8 @@ def on_policy_n_step_td(
             tau = t - n + 1
             if tau >= 0:
                 G = 0
-                for i in range(tau + 1, min(tau + n, T)):
-                    _, _, r_i, _ = traj[i]
+                for i in range(tau + 1, min(tau + n, T) + 1):
+                    _, _, r_i, _ = traj[i-1]
                     G += (gamma ** (i - tau - 1)) * r_i
                 if tau + n < T:
                     _, _, _, s_taun = traj[tau + n]
@@ -128,7 +128,7 @@ class NStepSARSA(Solver):
 
         # A trajectory will be a tuple of (s, a)
         traj = []           # List to store the behavior policy trajectory
-        rewards = []              # List to store the rewards
+        rewards = []        # List to store the rewards
 
         # Initialize the environment and store initiate state
         # Note: Assuming the gym environments like Taxi and FrozenLake returns a valid initial state when reset() is called.
@@ -164,14 +164,14 @@ class NStepSARSA(Solver):
             if tau >= 0:
                 rho = 1.0   # Weighted importance sampling ratio
                 # Compute the weighted importance sampling ratio.  This does the product of the ratios of the target policy to the behavior policy
-                for i in range(tau + 1, min(tau + n, T - 1)):
+                for i in range(tau + 1, min(tau + n, T - 1) + 1):
                     s_i, a_i = traj[i]
                     rho *= self.pi.action_prob(s_i, a_i) / bpi.action_prob(s_i, a_i)
 
                 # Compute the return G
                 episode_G = 0.0
-                for i in range(tau + 1, min(tau + n, T)):
-                    episode_G += (gamma ** (i - tau -1)) * rewards[i]
+                for i in range(tau + 1, min(tau + n, T) + 1):
+                    episode_G += (gamma ** (i - tau -1)) * rewards[i-1]
 
                 # Update the return G with the bootstrapped value from the target policy if we have enough steps to do so.
                 if tau + n < T:
