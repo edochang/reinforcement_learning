@@ -3,7 +3,7 @@ import numpy as np
 import gym
 from matplotlib import pyplot as plt
 
-from reinforce import REINFORCE, PiApproximationWithNN, Baseline, VApproximationWithNN
+from PA6.reinforce import REINFORCE, PiApproximationWithNN, Baseline, VApproximationWithNN
 
 def test_reinforce(with_baseline):
     env = gym.make("CartPole-v0")

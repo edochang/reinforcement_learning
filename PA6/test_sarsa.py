@@ -1,6 +1,6 @@
 import numpy as np
 import gym
-from sarsa import SarsaLambda, StateActionFeatureVectorWithTile
+from PA6.sarsa import SarsaLambda, StateActionFeatureVectorWithTile
 
 def test_sarsa_lamda():
     env = gym.make("MountainCar-v0")
