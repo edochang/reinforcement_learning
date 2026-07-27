@@ -23,7 +23,15 @@ def test_tile():
 
     Vs = [V(s) for s in testing_states]
     print(Vs)
-    assert np.allclose(Vs,correct_values,1e-2,3), f'{correct_values} != {Vs}, but it might due to stochasticity'
+    try:
+        for i, (state, expected) in enumerate(zip(Vs, correct_values)):
+            pct_diff = abs(expected - Vs[i]) / abs(expected) * 100 if expected != 0 else float('inf')
+            print(f"  State {i}: predicted={Vs[i]:.4f}, expected={expected:.4f}, diff={abs(Vs[i]-expected):.4f}, pct={pct_diff:.2f}%")
+
+        assert np.allclose(Vs,correct_values,1e-2,3), f'{correct_values} != {Vs}, but it might due to stochasticity'
+        print(f"test_tile(): ✔️ PASSED")
+    except AssertionError as e:
+        print(f"test_tile(): ❌ FAILED — {e}")
 
 def test_nn():
     env = gym.make("MountainCar-v0")
@@ -36,8 +44,18 @@ def test_nn():
 
     Vs = [V(s) for s in testing_states]
     print(Vs)
-    assert np.allclose(Vs,correct_values,0.20,5.), f'{correct_values} != {Vs}, but it might due to stochasticity'
+    try:
+        for i, (state, expected) in enumerate(zip(Vs, correct_values)):
+            pct_diff = abs(expected - Vs[i]) / abs(expected) * 100 if expected != 0 else float('inf')
+            print(f"  State {i}: predicted={Vs[i]:.4f}, expected={expected:.4f}, diff={abs(Vs[i]-expected):.4f}, pct={pct_diff:.2f}%")
+
+        assert np.allclose(Vs,correct_values,0.20,5.), f'{correct_values} != {Vs}, but it might due to stochasticity'
+        print(f"test_nn(): ✔️ PASSED")
+    except AssertionError as e:
+        print(f"test_nn(): ❌ FAILED — {e}")
 
 if __name__ == "__main__":
+    print("Test #1")
     test_tile()
+    print("Test #2")
     test_nn()
