@@ -1,9 +1,8 @@
-
 # PA6 Instructions
 
 In this programming assignment, we will implement (1) the true online Sarsa() algorithm described on page 307 of the textbook, (2) REINFORCE: Monte-Carlo Gradient Control (episodic) algorithm with baseline (page 330).
 
-The environments that are considered for this assignment are again from OpenAI gym. You need to implement two functions and two classes. Similar to the previous assignment, you have to keep the function and class interface intact since it will be auto-graded later. Please download the skeleton codeDownload skeleton code, and follow the instructions below.
+The environments that are considered for this assignment are again from OpenAI gym. You need to implement two functions and two classes. Similar to the previous assignment, you have to keep the function and class interface intact since it will be auto-graded later. Please download the skeleton code, and follow the instructions below.
 
 ## True Online Sarsa() Algorithm (1 pt)
 

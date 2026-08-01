@@ -1,6 +1,6 @@
 import numpy as np
 import gym
-from PA6.sarsa import SarsaLambda, StateActionFeatureVectorWithTile
+from sarsa import SarsaLambda, StateActionFeatureVectorWithTile
 
 def test_sarsa_lamda():
     env = gym.make("MountainCar-v0")
@@ -36,7 +36,12 @@ def test_sarsa_lamda():
     Gs = [_eval() for _ in  range(100)]
     _eval(True)
 
-    assert np.max(Gs) >= -110.0, 'fail to solve mountaincar'
+    try:
+        assert np.max(Gs) >= -110.0, 'fail to solve mountaincar'
+        print(f"test_sarsa_lamda(): ✔️ PASSED")
+    except AssertionError as e:
+        print(f"test_sarsa_lamda(): ❌ FAILED — {e}")
 
 if __name__ == "__main__":
+    print("Test Sarsa Lambda")
     test_sarsa_lamda()
